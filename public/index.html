@@ -62,10 +62,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
               <span @click="togglePriority( todo, 3 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 3 , 'label label-info priority-label': todo.priority === 3 }">Low Priority</span>
               <span @click="togglePriority( todo, 2 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 2 , 'label label-primary priority-label': todo.priority === 2 }">Normal</span>
               <span @click="togglePriority( todo, 1 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 1 , 'label label-danger priority-label': todo.priority === 1 }">High Priority</span>
+            </div>
+            <div class="col-sm-6 text-right">
+              <p class="label label-success"><i class="fa fa-clock-o"></i> Task created <span class="timeago" datetime="{{ todo.created }}">{{ todo.created | timeago }}</span></p>
             </div>
           </div>
         </li>

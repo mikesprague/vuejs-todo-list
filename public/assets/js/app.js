@@ -17,6 +17,10 @@ Vue.transition( "animate-todo", {
   leaveClass: "fadeOutLeftBig"
 });
 
+Vue.filter( "timeago", function( date ) {
+  return new timeago().format( date );
+});
+
 Vue.component( "todo-list", {
   template: "#todo-list-template",
   props: ['tasks'],
@@ -33,16 +37,22 @@ Vue.component( "todo-list", {
       this.initApp();
     }
   },
+  ready: function() {
+    new timeago().render( document.querySelectorAll( ".timeago" ) );
+  },
   methods: {
     togglePriority: function( task, priority ) {
+      task.updated = Date.now();
       task.priority = priority;
       this.setData( "todoData", this.tasks );
     },
     toggleTodoStatus: function( task ) {
-      task.completed = !task.completed
+      task.updated = Date.now();
+      task.completed = !task.completed;
       this.setData( "todoData", this.tasks );
     },
     deleteTodo: function( task ) {
+      task.updated = Date.now();
       this.tasks.$remove( task );
       this.setData( "todoData", this.tasks );
     },
@@ -51,7 +61,11 @@ Vue.component( "todo-list", {
         this.tasks.push({
           task: this.newTask,
           priority: this.taskPriority,
+          created: Date.now(),
           completed: false
+        });
+        this.$nextTick( function() {
+          new timeago().render( document.querySelectorAll( ".timeago" ) );
         });
         this.newTask = "";
         this.setData( "todoData", this.tasks );
@@ -85,6 +99,7 @@ Vue.component( "todo-list", {
       localStorage.clear();
       this.setData( "todoData", this.tasks );
       this.setData( "originalData", this.tasks );
+      new timeago().render( document.querySelectorAll( ".timeago" ) );
     }
   },
   computed: {
@@ -112,10 +127,12 @@ var app = new Vue({
     allTodos: [{
         task: "Do something",
         priority: 2,
+        created: Date.now(),
         completed: false
       }, {
         task: "Do something else",
         priority: 1,
+        created: Date.now(),
         completed: true
     }]
   }
