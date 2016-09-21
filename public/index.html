@@ -51,7 +51,7 @@
       <a class="text-danger pull-right" href="#" @click.prevent="resetApp">Reset to Default Demo Data<i class="fa fa-fw fa-refresh"></i></a>
       <hr>
       <ul class="list-group">
-        <li class="list-group-item animated" v-for="todo in tasks" todo="todo">
+        <li class="list-group-item animated" v-for="todo in tasks" todo="todo" transition="animate-todo">
           <div class="row">
             <div class="col-sm-12">
               <i :class="{ 'fa fa-fw fa-2x fa-circle-o task-check': !todo.completed, 'fa fa-fw fa-2x fa-check-circle-o text-success task-check': todo.completed }" @click="toggleTodoStatus( todo )"></i>

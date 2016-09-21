@@ -12,6 +12,11 @@ var footer = new Vue({
   el: ".footer"
 });
 
+Vue.transition( "animate-todo", {
+  enterClass: "flipInX",
+  leaveClass: "fadeOutLeftBig"
+});
+
 Vue.component( "todo-list", {
   template: "#todo-list-template",
   props: ['tasks'],
