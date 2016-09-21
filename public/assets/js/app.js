@@ -47,7 +47,7 @@ Vue.component( "todo-list", {
       this.setData( "todoData", this.tasks );
     },
     addTodo: function() {
-      if ( this.newTask.length ) {
+      if ( this.newTask.trim().length ) {
         this.tasks.push({
           task: this.newTask,
           priority: this.taskPriority,
