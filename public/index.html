@@ -8,6 +8,7 @@
     <meta name="author" content="Mike Sprague">
     <title>Simple Vue.js to-do list demo | &lt;/&gt; by Mike Sprague</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <!--[if lt IE 9]>
@@ -50,7 +51,7 @@
       <a class="text-danger pull-right" href="#" @click.prevent="resetApp">Reset to Default Demo Data<i class="fa fa-fw fa-refresh"></i></a>
       <hr>
       <ul class="list-group">
-        <li class="list-group-item" v-for="todo in tasks" todo="todo">
+        <li class="list-group-item animated" v-for="todo in tasks" todo="todo">
           <div class="row">
             <div class="col-sm-12">
               <i :class="{ 'fa fa-fw fa-2x fa-circle-o task-check': !todo.completed, 'fa fa-fw fa-2x fa-check-circle-o text-success task-check': todo.completed }" @click="toggleTodoStatus( todo )"></i>
