@@ -55,6 +55,8 @@ Vue.component( "todo-list", {
         });
         this.newTask = "";
         this.setData( "todoData", this.tasks );
+      } else {
+        this.newTask = "";
       }
     },
     isComplete: function( task ) {
