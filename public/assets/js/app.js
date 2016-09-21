@@ -1,24 +1,10 @@
-Vue.component( "footer-content", {
-  template: '<div class="container"> \
-      <p class="text-muted text-center"> \
-        Built by <a href="https://mikesprague.me" target="_blank">Mike Sprague</a>. \
-        <br> \
-        Source <i class="fa fa-code"></i> available on <a href="https://github.com/mikesprague/vuejs-todo-list" target="_blank"><i class="fa fa-github"></i> GitHub</a>. \
-      </p> \
-    </div>'
-});
-
-var footer = new Vue({
-  el: ".footer"
+Vue.filter( "timeago", function( date ) {
+  return new timeago().format( date );
 });
 
 Vue.transition( "animate-todo", {
   enterClass: "flipInX",
   leaveClass: "fadeOutLeftBig"
-});
-
-Vue.filter( "timeago", function( date ) {
-  return new timeago().format( date );
 });
 
 Vue.component( "todo-list", {

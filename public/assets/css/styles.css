@@ -31,11 +31,15 @@ body {
 .task-completed {
   text-decoration: line-through;
 }
-.priority-label:nth-of-type(1) {
-  margin-left: 54px;
+.time-created {
+  margin-left: 20px;
+}
+.priority-meta {
+  margin: 20px 0 0 10px;
 }
 .priority-label {
   cursor: pointer;
+  margin-left: 4px;
 }
 .priority-label.inactive {
   color: #777;
