@@ -48,13 +48,15 @@
     <template id="todo-list-template">
       <input class="form-control input-lg" placeholder="What do you need to do?" v-model="newTask" @keypress.enter="addTodo( todo )">
       <hr>
-      <i class="fa fa-fw fa-bar-chart"></i>
-      <span v-show="!remainingTasks && completedTasks">No Tasks Remaining</span>
-      <span v-show="remainingTasks">{{ remainingTasks }} {{ remainingTasks | pluralize "Task" }} Remaining</span>
-      <span v-show="totalTasks > 1 && totalTasks > remainingTasks"> of {{ totalTasks }} Total {{ totalTasks | pluralize "Task" }}</span>
-      <span v-show="!remainingTasks && !completedTasks">No Tasks in List</span>
-      <span v-show="completedTasks"> | <a class="text-warning" href="#" @click.prevent="clearCompleted"><i class="fa fa-fw fa-times"></i>Remove Completed Tasks from List</a></span>
-      <a class="text-danger pull-right" href="#" @click.prevent="resetApp">Reset to Default Demo Data<i class="fa fa-fw fa-refresh"></i></a>
+      <small>
+        <i class="fa fa-fw fa-bar-chart"></i>
+        <span v-show="!remainingTasks && completedTasks">No Tasks Remaining</span>
+        <span v-show="remainingTasks">{{ remainingTasks }} {{ remainingTasks | pluralize "Task" }} Remaining</span>
+        <span v-show="totalTasks > 1 && totalTasks > remainingTasks"> of {{ totalTasks }} Total {{ totalTasks | pluralize "Task" }}</span>
+        <span v-show="!remainingTasks && !completedTasks">No Tasks in List</span>
+        <span v-show="completedTasks"> | <a class="text-warning" href="#" @click.prevent="clearCompleted"><i class="fa fa-fw fa-times"></i>Remove Completed Tasks from List</a></span>
+        <a class="text-danger pull-right" href="#" @click.prevent="resetApp">Reset to Default Demo Data<i class="fa fa-fw fa-refresh"></i></a>
+      </small>
       <hr>
       <ul class="list-group">
         <li class="list-group-item animated" v-for="todo in tasks" todo="todo" transition="animate-todo">
