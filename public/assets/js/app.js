@@ -2,11 +2,6 @@ Vue.filter( "timeago", function( date ) {
   return new timeago().format( date );
 });
 
-Vue.transition( "animate-todo", {
-  enterClass: "flipInX",
-  leaveClass: "fadeOutLeftBig"
-});
-
 Vue.component( "todo-list", {
   template: "#todo-list-template",
   props: ['tasks'],
@@ -23,7 +18,7 @@ Vue.component( "todo-list", {
       this.initApp();
     }
   },
-  ready: function() {
+  mounted: function() {
     new timeago().render( document.querySelectorAll( ".timeago" ) );
   },
   methods: {
@@ -39,7 +34,7 @@ Vue.component( "todo-list", {
     },
     deleteTodo: function( task ) {
       task.updated = Date.now();
-      this.tasks.$remove( task );
+      this.tasks.splice( this.tasks.indexOf( task ), 1 );
       this.setData( "todoData", this.tasks );
     },
     addTodo: function() {

@@ -46,45 +46,47 @@
     </footer>
 
     <template id="todo-list-template">
-      <input class="form-control input-lg" placeholder="What do you need to do?" v-model="newTask" @keypress.enter="addTodo( todo )">
-      <hr>
-      <small>
-        <i class="fa fa-fw fa-bar-chart"></i>
-        <span v-show="!remainingTasks && completedTasks">No Tasks Remaining</span>
-        <span v-show="remainingTasks">{{ remainingTasks }} {{ remainingTasks | pluralize "Task" }} Remaining</span>
-        <span v-show="totalTasks > 1 && totalTasks > remainingTasks"> of {{ totalTasks }} Total {{ totalTasks | pluralize "Task" }}</span>
-        <span v-show="!remainingTasks && !completedTasks">No Tasks in List</span>
-        <span v-show="completedTasks"> | <a class="text-warning" href="#" @click.prevent="clearCompleted"><i class="fa fa-fw fa-times"></i>Remove Completed Tasks from List</a></span>
-        <a class="text-danger pull-right" href="#" @click.prevent="resetApp">Reset to Default Demo Data<i class="fa fa-fw fa-refresh"></i></a>
-      </small>
-      <hr>
-      <ul class="list-group">
-        <li class="list-group-item animated" v-for="todo in tasks" todo="todo" transition="animate-todo">
-          <div class="row">
-            <div class="col-sm-12">
-              <i :class="{ 'fa fa-fw fa-2x fa-circle-o task-check': !todo.completed, 'fa fa-fw fa-2x fa-check-circle-o text-success task-check': todo.completed }" @click="toggleTodoStatus( todo )"></i>
-              <span :class="{ 'task-text': !todo.completed, 'task-text task-completed text-success': todo.completed }" @click="toggleTodoStatus( todo )">
-                {{ todo.task }}
-              </span>
-              <button class="btn btn-danger btn-sm pull-right" @click="deleteTodo( todo )"><i class="fa fa-2x fa-minus-circle"></i></button>
+      <div>
+        <input class="form-control input-lg" placeholder="What do you need to do?" v-model="newTask" @keypress.enter="addTodo( todo )">
+        <hr>
+        <small>
+          <i class="fa fa-fw fa-bar-chart"></i>
+          <span v-show="!remainingTasks && completedTasks">No Tasks Remaining</span>
+          <span v-show="remainingTasks">{{ remainingTasks }} Remaining Task<span v-show="remainingTasks > 1 || remainingTasks === 0">s</span></span>
+          <span v-show="totalTasks > 1 && totalTasks > remainingTasks"> of {{ totalTasks }} Total Task<span v-show="totalTasks > 1 || totalTasks === 0">s</span></span>
+          <span v-show="!remainingTasks && !completedTasks">No Tasks in List</span>
+          <span v-show="completedTasks"> | <a class="text-warning" href="#" @click.prevent="clearCompleted"><i class="fa fa-fw fa-times"></i>Remove Completed Tasks from List</a></span>
+          <a class="text-danger pull-right" href="#" @click.prevent="resetApp">Reset to Default Demo Data<i class="fa fa-fw fa-refresh"></i></a>
+        </small>
+        <hr>
+        <ul class="list-group">
+          <li class="list-group-item animated flipInX" v-for="todo in tasks" todo="todo">
+            <div class="row">
+              <div class="col-sm-12">
+                <i :class="{ 'fa fa-fw fa-2x fa-circle-o task-check': !todo.completed, 'fa fa-fw fa-2x fa-check-circle-o text-success task-check': todo.completed }" @click="toggleTodoStatus( todo )"></i>
+                <span :class="{ 'task-text': !todo.completed, 'task-text task-completed text-success': todo.completed }" @click="toggleTodoStatus( todo )">
+                  {{ todo.task }}
+                </span>
+                <button class="btn btn-danger btn-sm pull-right" @click="deleteTodo( todo )"><i class="fa fa-2x fa-minus-circle"></i></button>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <small class="priority-meta text-muted">
-                Priority:
-                <span @click="togglePriority( todo, 3 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 3 , 'label label-info priority-label': todo.priority === 3 }"><i class="fa fa-chevron-down"></i> Low</span>
-                <span @click="togglePriority( todo, 2 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 2 , 'label label-primary priority-label': todo.priority === 2 }">Normal</span>
-                <span @click="togglePriority( todo, 1 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 1 , 'label label-danger priority-label': todo.priority === 1 }">High <i class="fa fa-chevron-up"></i></span>
-                <span v-show="todo.created"><i class="fa fa-clock-o time-created"></i> Added <span class="timeago" datetime="{{ todo.created }}">{{ todo.created | timeago }}</span></span>
-              </small>
+            <div class="row">
+              <div class="col-sm-12">
+                <small class="priority-meta text-muted">
+                  Priority:
+                  <span @click="togglePriority( todo, 3 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 3 , 'label label-info priority-label': todo.priority === 3 }"><i class="fa fa-chevron-down"></i> Low</span>
+                  <span @click="togglePriority( todo, 2 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 2 , 'label label-primary priority-label': todo.priority === 2 }">Normal</span>
+                  <span @click="togglePriority( todo, 1 )" :class="{ 'label label-default priority-label inactive': todo.priority !== 1 , 'label label-danger priority-label': todo.priority === 1 }">High <i class="fa fa-chevron-up"></i></span>
+                  <span v-show="todo.created"><i class="fa fa-clock-o time-created"></i> Added <span class="timeago" :datetime="todo.created">{{ todo.created | timeago }}</span></span>
+                </small>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </template>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.1/timeago.min.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
     <script src="assets/js/config.js"></script> -->
