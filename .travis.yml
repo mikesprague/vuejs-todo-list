@@ -3,6 +3,8 @@ node_js:
   - "6.9.0"
 script:
   - echo "Deploying VueJS To-do List ..."
+before_install:
+  - npm i -g yarn --cache-min 999999999
 install:
   - yarn global add firebase-tools
 after_success:
