@@ -4,11 +4,26 @@ Vue.filter( "timeago", function( date ) {
 
 Vue.component( "todo-list", {
   template: "#todo-list-template",
-  props: ['tasks'],
   data: function() {
     return {
       newTask: "",
-      taskPriority: 2 // 1: high, 2: normal. 3: low
+      tasks: [
+        {
+          task: "Do something",
+          priority: 2,
+          created: Date.now(),
+          completed: false
+        },
+        {
+          task: "Do something else",
+          priority: 1,
+          created: Date.now(),
+          completed: true
+        }
+      ],
+      defaultSortBy: [ "priority", "created" ],
+      defaultSortOrder: [ "asc", "desc" ],
+      defaultTaskPriority: 2 // 1: high, 2: normal. 3: low
     }
   },
   created: function() {
@@ -25,12 +40,16 @@ Vue.component( "todo-list", {
     togglePriority: function( task, priority ) {
       task.updated = Date.now();
       task.priority = priority;
+      this.sortTasks( this.defaultSortBy, this.defaultSortOrder );
       this.setData( "todoData", this.tasks );
     },
     toggleTodoStatus: function( task ) {
       task.updated = Date.now();
       task.completed = !task.completed;
       this.setData( "todoData", this.tasks );
+    },
+    sortTasks: function( sortBy, sortOrder ) {
+      this.tasks = _.orderBy( this.tasks, sortBy, sortOrder );
     },
     deleteTodo: function( task ) {
       task.updated = Date.now();
@@ -41,7 +60,7 @@ Vue.component( "todo-list", {
       if ( this.newTask.trim().length ) {
         this.tasks.push({
           task: this.newTask,
-          priority: this.taskPriority,
+          priority: this.defaultTaskPriority,
           created: Date.now(),
           completed: false
         });
@@ -78,8 +97,9 @@ Vue.component( "todo-list", {
     },
     initApp: function() {
       localStorage.clear();
-      this.setData( "todoData", this.tasks );
       this.setData( "originalData", this.tasks );
+      this.sortTasks( this.defaultSortBy, this.defaultSortOrder );
+      this.setData( "todoData", this.tasks );
       new timeago().render( document.querySelectorAll( ".timeago" ) );
     }
   },
@@ -103,18 +123,5 @@ Vue.component( "todo-list", {
 });
 
 var app = new Vue({
-  el: "#app",
-  data: {
-    allTodos: [{
-        task: "Do something",
-        priority: 2,
-        created: Date.now(),
-        completed: false
-      }, {
-        task: "Do something else",
-        priority: 1,
-        created: Date.now(),
-        completed: true
-    }]
-  }
+  el: "#app"
 });
