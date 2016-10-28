@@ -30,7 +30,7 @@
     <div class="container" id="app">
       <div class="row">
         <div class="col-sm-12">
-          <todo-list :tasks="allTodos"></todo-list>
+          <todo-list></todo-list>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
 
     <template id="todo-list-template">
       <div>
-        <input class="form-control input-lg" placeholder="What do you need to do?" v-model="newTask" @keypress.enter="addTodo( todo )">
+        <input class="form-control input-lg" placeholder="What do you need to do?" v-model="newTask" @keypress.enter="addTodo()">
         <hr>
         <small>
           <i class="fa fa-fw fa-bar-chart"></i>
